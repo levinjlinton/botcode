@@ -5,6 +5,21 @@ competition Competition;
 
 //put motors here
 
+motor LeftBack =  motor(PORT1, ratio6_1, false);
+motor LeftMiddle = motor(PORT2, ratio6_1, false);
+motor LeftFront = motor(PORT3, ratio6_1, false);
+
+motor RightBack =  motor(PORT4, ratio6_1, true);
+motor RightMiddle = motor(PORT5, ratio6_1, true);
+motor RightFront = motor(PORT6, ratio6_1, true);
+
+inertial InertialSensor = inertial(PORT7);
+
+motor_group LeftDrive = motor_group(LeftFront, LeftMiddle, LeftBack);
+motor_group RightDrive = motor_group(RightFront, RightMiddle, RightBack);
+
+
+
 /*---------------------------------------------------------------------------*/
 /*                             VEXcode Config                                */
 /*                                                                           */
@@ -46,10 +61,10 @@ ZERO_TRACKER_NO_ODOM,
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
 //Left Motors:
-motor_group(),
+motor_group(LeftFront, LeftMiddle, LeftBack),
 
 //Right Motors:
-motor_group(),
+motor_group(RightFront, RightMiddle, RightBack),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
 PORT1,
