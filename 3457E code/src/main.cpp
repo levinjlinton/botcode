@@ -6,17 +6,15 @@ competition Competition;
 //put motors here
 
 motor LeftBack =  motor(PORT1, ratio6_1, false);
-motor LeftMiddle = motor(PORT2, ratio6_1, false);
 motor LeftFront = motor(PORT3, ratio6_1, false);
 
 motor RightBack =  motor(PORT4, ratio6_1, true);
-motor RightMiddle = motor(PORT5, ratio6_1, true);
 motor RightFront = motor(PORT6, ratio6_1, true);
 
 inertial InertialSensor = inertial(PORT7);
 
-motor_group LeftDrive = motor_group(LeftFront, LeftMiddle, LeftBack);
-motor_group RightDrive = motor_group(RightFront, RightMiddle, RightBack);
+motor_group LeftDrive = motor_group(LeftFront, LeftBack);
+motor_group RightDrive = motor_group(RightFront, RightBack);
 
 
 
