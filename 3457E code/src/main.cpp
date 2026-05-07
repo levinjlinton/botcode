@@ -11,8 +11,6 @@ motor LeftFront = motor(PORT3, ratio6_1, false);
 motor RightBack =  motor(PORT4, ratio6_1, true);
 motor RightFront = motor(PORT6, ratio6_1, true);
 
-inertial InertialSensor = inertial(PORT7);
-
 motor_group LeftDrive = motor_group(LeftFront, LeftBack);
 motor_group RightDrive = motor_group(RightFront, RightBack);
 
@@ -59,13 +57,13 @@ ZERO_TRACKER_NO_ODOM,
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
 //Left Motors:
-motor_group(LeftFront, LeftMiddle, LeftBack),
+motor_group(LeftFront, LeftBack),
 
 //Right Motors:
-motor_group(RightFront, RightMiddle, RightBack),
+motor_group(RightFront, RightBack),
 
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT1,
+PORT7,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 3.25,
@@ -133,6 +131,10 @@ bool auto_started = false;
 void pre_auton() {
   // Initializing Robot Configuration. DO NOT REMOVE!
   vexcodeInit();
+  chassis.Gyro.calibrate();
+  while (chassis.Gyro.isCalibrating()) {
+    wait(20, msec);
+  }
   default_constants();
 
   while(!auto_started){
@@ -159,23 +161,14 @@ void pre_auton() {
       case 4:
         Brain.Screen.printAt(5, 140, "Auton 5");
         break;
-      case 5:
-        Brain.Screen.printAt(5, 140, "Auton 6");
-        break;
-      case 6:
-        Brain.Screen.printAt(5, 140, "Auton 7");
-        break;
-      case 7:
-        Brain.Screen.printAt(5, 140, "Auton 8");
-        break;
     }
     if(Brain.Screen.pressing()){
       while(Brain.Screen.pressing()) {}
       current_auton_selection ++;
-    } else if (current_auton_selection == 8){
+    } else if (current_auton_selection == 5){
       current_auton_selection = 0;
     }
-    // task::sleep(10);
+    wait(20, msec);
   }
 }
 
@@ -203,15 +196,6 @@ void autonomous(void) {
       break;
     case 4:
       full_test();
-      break;
-    case 5:
-      odom_test();
-      break;
-    case 6:
-      tank_odom_test();
-      break;
-    case 7:
-      holonomic_odom_test();
       break;
  }
 }
